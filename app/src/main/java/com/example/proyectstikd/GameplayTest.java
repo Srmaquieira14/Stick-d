@@ -49,9 +49,14 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void drawIt(Canvas c) {
+        Paint p = new Paint();
+        p.setColor(Color.WHITE);
+        p.setStyle(Paint.Style.STROKE);
+        p.setStrokeWidth(5);
         try{
             c.drawColor(Color.WHITE);
             c.drawBitmap(test1.image,test1.position.x,test1.position.y,null);
+            c.drawRect(test1.rectangles[0],p);
             //c.drawRect(new Rect(),null);
             //drawIt(c);
         } catch (Exception e){
@@ -94,7 +99,14 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
             float y = event.getY();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    test1.setSpeed(10);
+                    if(x>screenWidth/2) {
+                        test1.setSpeed(10);
+                    } else {
+                        test1.setSpeed(-10);
+                    }
+                    if(y<screenHeight/2){
+                        test1.setVertSpeed(400);
+                    }
                     break;
 
                 case MotionEvent.ACTION_UP:
