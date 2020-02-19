@@ -28,7 +28,7 @@ public class HitboxTest1 {
         position.y = height-image.getHeight();
         if(vertSpeed!=0) {
             position.y -= vertSpeed;
-            if (vertSpeed >= 10) {
+            if (vertSpeed > 10) {
                 vertSpeed -= gravity;
             }
         }

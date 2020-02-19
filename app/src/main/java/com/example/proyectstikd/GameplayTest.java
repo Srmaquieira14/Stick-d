@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -24,6 +25,7 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
     private int screenHeight = 1;
     private boolean funcionando = false;
     HitboxTest1 test1;
+    LayoutTest layTest1;
     Bitmap bitmapTest1;
 
 
@@ -54,9 +56,13 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(5);
         try{
-            c.drawColor(Color.WHITE);
+            c.drawColor(Color.GREEN);
             c.drawBitmap(test1.image,test1.position.x,test1.position.y,null);
             c.drawRect(test1.rectangles[0],p);
+            p.setColor(Color.RED);
+
+            Log.i("rect",layTest1.layRectangles[0].left+":"+layTest1.layRectangles[0].right+"  "+layTest1.layRectangles[0].top+":"+layTest1.layRectangles[0].bottom);
+            c.drawRect(layTest1.layRectangles[0],p);
             //c.drawRect(new Rect(),null);
             //drawIt(c);
         } catch (Exception e){
@@ -132,8 +138,10 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
         }
 
         public void setSurfaceSize(int width, int height){
+            Log.i("entreo","entro");
             bitmapTest1 = BitmapFactory.decodeResource(context.getResources(),R.drawable.bluesquare);
             test1 = new HitboxTest1(bitmapTest1,0,0);
+            layTest1 = new LayoutTest(0,0,screenWidth,screenHeight);
         }
 
 
