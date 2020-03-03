@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
@@ -58,11 +59,17 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
         try{
             c.drawColor(Color.GREEN);
             c.drawBitmap(test1.image,test1.position.x,test1.position.y,null);
-            c.drawRect(test1.rectangles[0],p);
+            //c.drawRect(test1.rectangles[0],p);
             p.setColor(Color.RED);
 
-            Log.i("rect",layTest1.layRectangles[0].left+":"+layTest1.layRectangles[0].right+"  "+layTest1.layRectangles[0].top+":"+layTest1.layRectangles[0].bottom);
             c.drawRect(layTest1.layRectangles[0],p);
+            c.drawRect(layTest1.layRectangles[1],p);
+            c.drawRect(layTest1.layRectangles[2],p);
+            c.drawRect(layTest1.layRectangles[3],p);
+            c.drawRect(layTest1.layRectangles[4],p);
+            c.drawRect(layTest1.layRectangles[5],p);
+            c.drawRect(layTest1.layRectangles[6],p);
+            c.drawRect(layTest1.layRectangles[7],p);
             //c.drawRect(new Rect(),null);
             //drawIt(c);
         } catch (Exception e){
@@ -101,17 +108,18 @@ public class GameplayTest extends SurfaceView implements SurfaceHolder.Callback{
     public boolean onTouchEvent(MotionEvent event){
         synchronized (surfaceHolder) {
             int action = event.getAction();
-            float x = event.getX();
-            float y = event.getY();
+            int x = (int) event.getX();
+            int y = (int) event.getY();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    if(x>screenWidth/2) {
+                    if(layTest1.layRectangles[2].contains(x,y)) {
                         test1.setSpeed(10);
-                    } else {
+                    }
+                    if(layTest1.layRectangles[1].contains(x,y)){
                         test1.setSpeed(-10);
                     }
-                    if(y<screenHeight/2){
-                        test1.setVertSpeed(400);
+                    if(layTest1.layRectangles[0].contains(x,y)){
+                        test1.setVertSpeed(400);//TODO booleanas con fisicas mas realistas (salto acelerado)
                     }
                     break;
 
